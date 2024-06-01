@@ -1,0 +1,10 @@
+.category-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card__title {
+    font-size: 52px;
+    color: #57290E;
+    font-weight: 600;
+}

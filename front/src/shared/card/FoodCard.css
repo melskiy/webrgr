@@ -1,3 +1,7 @@
+.food-card-link {
+    text-decoration: none;
+}
+
 .food-card {
     display: flex;
     flex-direction: column;
@@ -7,6 +11,12 @@
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 8px;
+    cursor: pointer;
+    color: black;
+}
+
+.food-card:hover {
+    filter: brightness(95%);
 }
 
 .food-card__img {

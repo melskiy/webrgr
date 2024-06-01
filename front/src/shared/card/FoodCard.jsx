@@ -1,15 +1,19 @@
-import "./FoodCard.css"
+import { Link } from "react-router-dom";
+import "./FoodCard.css";
+import { CATEGORY_PATH, CATEGORIES_PATH } from "/src/const/path/PagePaths";
 
 const FoodCard = ({ img, name }) => {
     return (
-        <div className="food-card">
-            <img className="food-card__img" />
-            <div className="food-card__block">
-                <p className="food-card__block-name">
-                    { name }
-                </p>
+        <Link className="food-card-link" to={CATEGORY_PATH} target="_blank">
+            <div className="food-card">
+                <img className="food-card__img" src={img} />
+                <div className="food-card__block">
+                    <p className="food-card__block-name">
+                        { name }
+                    </p>
+                </div>
             </div>
-        </div>
+        </Link>
     );
 }
 

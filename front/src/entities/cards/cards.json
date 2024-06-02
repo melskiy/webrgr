@@ -3,7 +3,7 @@
     { "img": "/src/widget/categories/images/chicken.jpg", "name": "Мясо птицы и субпродукты", "url": "chicken" },
     { "img": "/src/widget/categories/images/fish.jpg", "name": "Рыба", "url": "fish" },
     { "img": "/src/widget/categories/images/seafood.jpg", "name": "Морепродукты", "url": "seafood" },
-    { "img": "/src/widget/categories/images/eggs.jpg", "name": "Яйца, яичные продукты", "url": "eggs" },
+    { "img": "/src/widget/categories/images/eggss.jpg", "name": "Яйца, яичные продукты", "url": "eggs" },
     { "img": "/src/widget/categories/images/milk.jpg", "name": "Молоко, молочные продукты", "url": "milk" },
     { "img": "/src/widget/categories/images/soya.jpg", "name": "Соя, соевые продукты", "url": "soya" },
     { "img": "/src/widget/categories/images/vegetables.jpg", "name": "Овощи", "url": "vegetables" },

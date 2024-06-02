@@ -22,7 +22,7 @@ const Categories = () => {
             </p>
             <div className="categories__blocks">
                 {cards?.map((card) => (
-                    <FoodCard className="categories__block" key={card.name} name={card.name} img={card.img}></FoodCard>
+                    <FoodCard className="categories__block" key={card.name} name={card.name} img={card.img} url={card.url}></FoodCard>
                 ))}
             </div>
         </div>

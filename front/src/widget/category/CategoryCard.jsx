@@ -3,7 +3,8 @@ import "./CategoryCard.css"
 
 const CategoryCard = () => {
     useEffect(() => {
-        fetch("/src/entities/products/products.json")
+        const url = localStorage.getItem("product");
+        fetch("http://localhost:4000/collection/" + url)
             .then(response => response.json())
             .then(response => setProducts(response))
     }, [])

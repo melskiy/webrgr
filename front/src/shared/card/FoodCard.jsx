@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import "./FoodCard.css";
 import { CATEGORY_PATH, CATEGORIES_PATH } from "/src/const/path/PagePaths";
 
-const FoodCard = ({ img, name }) => {
+const FoodCard = ({ img, name, url }) => {
     return (
-        <Link className="food-card-link" to={CATEGORY_PATH} target="_blank">
+        <Link onClick={() => localStorage.setItem("product", url)} className="food-card-link" to={CATEGORY_PATH} target="_blank">
             <div className="food-card">
                 <img className="food-card__img" src={img} />
                 <div className="food-card__block">

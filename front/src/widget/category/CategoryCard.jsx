@@ -33,7 +33,7 @@ const CategoryCard = () => {
 
     return (
         <div className="category-card">
-            <h1 className="category-card__title">НАЗВАНИЕ КАТЕГОРИИ</h1>
+            <h1 className="category-card__title">{localStorage.getItem("product_name")}</h1>
             <table>
                 <thead>
                     <tr>

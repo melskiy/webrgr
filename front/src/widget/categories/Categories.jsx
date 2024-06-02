@@ -14,8 +14,8 @@ const Categories = () => {
             <img
 
                 className="categories__image"
-                src="/src/widget/categories/images/maina.jpg"
-                onError="this.src='/fallback.png';"
+                src="/src/widget/categories/images/main.jpg"
+                onError={(ev) => ev.target.src = '/fallback.png'}
                 alt="Различные продукты"
             />
             <p className="categories__title">

@@ -4,7 +4,7 @@ import "./CategoryCard.css"
 const CategoryCard = () => {
     useEffect(() => {
         const url = localStorage.getItem("product");
-        fetch("http://localhost:4000/collection/" + url)
+        fetch("http://rnnnq-188-162-86-119.a.free.pinggy.link/" + url)
             .then(response => response.json())
             .then(response => setProducts(response))
     }, [])

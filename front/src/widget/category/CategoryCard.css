@@ -1,10 +1,52 @@
 .category-card {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .category-card__title {
-    font-size: 52px;
+    font-size: 45px;
     color: #57290E;
     font-weight: 600;
+}
+
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th,
+td {
+    border: 1px solid #cccc66;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #a6c941;
+}
+
+tr:nth-child(even) {
+    background-color: #ebf1d3;
+}
+
+button {
+    background-image: url(./images/sort.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    background-color: #a6c941;
+    height: 15px;
+    width: 15px;
+    border: none;
+}
+
+.category-card__th-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }

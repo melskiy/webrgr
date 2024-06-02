@@ -1,0 +1,18 @@
+[
+    {
+        "_id": 0,
+        "product": "Лобстер",
+        "calories": 891,
+        "squirrels": 191,
+        "fats": 0.861,
+        "carbohydrates": 1
+    },
+    {
+        "_id": 8,
+        "product": "Краб",
+        "calories": 89,
+        "squirrels": 19,
+        "fats": 0.86,
+        "carbohydrates": 3
+    }
+]

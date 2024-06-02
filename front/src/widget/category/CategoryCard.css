@@ -53,3 +53,26 @@ button {
     justify-content: center;
     gap: 5px;
 }
+
+@media (max-width: 600px) {
+    .category-card__title {
+            font-size: 24px;
+            text-align: center;
+        }
+    th,
+    td {
+            border: 1px solid #cccc66;
+            /* padding: 10px; */
+            text-align: center;
+            font-size: 8px;
+            padding: 5px;
+        }
+        button {
+            background-size: 8px 8px;
+            height: 8px;
+            width: 8px;
+        }
+        .category-card__th-block {
+            gap: 2px
+        }
+}

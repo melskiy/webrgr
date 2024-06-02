@@ -18,7 +18,7 @@ const Categories = () => {
     fetch('src/entities/cards/cards.json')
      .then((response) => response.json())
      .then((response) => setCards(response));
-  });
+  }, []);
 
   // Возвращаем разметку компонента
   return (

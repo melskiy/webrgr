@@ -20,9 +20,7 @@ const FoodCard = ({ img, name, url }) => {
       // Добавляем класс для стилизации ссылки
       className="food-card-link"
       // Указываем путь, на который будет вести ссылка
-      to={CATEGORY_PATH}
-      // Открываем ссылку в новой вкладке
-      target="_blank"
+      to={CATEGORY_PATH + url}
     >
       {/* Создаем контейнер для карточки продукта */}
       <div className="food-card">

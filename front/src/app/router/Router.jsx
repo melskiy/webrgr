@@ -12,9 +12,20 @@ import CategoryCard from "/src/widget/category/CategoryCard";
 
 // Импортируем константы путей из файла PagePaths
 import { CATEGORIES_PATH, CATEGORY_PATH } from "/src/const/path/PagePaths";
+import { useEffect, useState } from "react";
 
 // Определяем компонент Router
 const Router = () => {
+  // Создаем состояние cards с помощью хука useState
+  const [cards, setCards] = useState();
+
+  // Используем хук useEffect для загрузки данных при монтировании компонента
+  useEffect(() => {
+    // Fetch API для загрузки данных из файла cards.json
+    fetch('src/entities/cards/cards.json')
+     .then((response) => response.json())
+     .then((response) => setCards(response));
+  }, []);
   // Возвращаем BrowserRouter, который является корневым компонентом для маршрутизации
   return (
     <BrowserRouter>
@@ -22,8 +33,10 @@ const Router = () => {
       <Routes>
         {/* Маршрут для категорий */}
         <Route path={CATEGORIES_PATH} element={<Categories/>}/>
-        {/* Маршрут для карточки категории */}
-        <Route path={CATEGORY_PATH} element={<CategoryCard/>} />
+        {/* Маршруты для карточки категории */}
+        {cards?.map((card) => (
+          <Route key={card.url} path={CATEGORY_PATH + card.url} element={<CategoryCard />} />
+        ))}
       </Routes>
     </BrowserRouter>
   );

@@ -1,9 +1,6 @@
 // Импортируем необходимые компоненты из react-router-dom
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-// Импортируем компонент Layout из shared/layout/Layout
-import Layout from "/src/shared/layout/Layout";
-
 // Импортируем компонент Categories из widget/categories/Categories
 import Categories from "/src/widget/categories/Categories";
 

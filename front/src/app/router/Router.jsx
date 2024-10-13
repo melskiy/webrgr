@@ -13,6 +13,8 @@ import CategoryCard from "/src/widget/category/CategoryCard";
 // Импортируем константы путей из файла PagePaths
 import { CATEGORIES_PATH, CATEGORY_PATH } from "/src/const/path/PagePaths";
 import { useEffect, useState } from "react";
+import { AUTH_PATH } from "../../const/path/PagePaths";
+import Login from "../../auth/auth";
 
 // Определяем компонент Router
 const Router = () => {
@@ -32,6 +34,7 @@ const Router = () => {
       {/* Определяем Routes, который содержит все маршруты приложения */}
       <Routes>
         {/* Маршрут для категорий */}
+        <Route path={AUTH_PATH} element={<Login/>}/>
         <Route path={CATEGORIES_PATH} element={<Categories/>}/>
         {/* Маршруты для карточки категории */}
         {cards?.map((card) => (

@@ -13,6 +13,7 @@ import Router from '/src/app/router/Router.jsx'
 // Импортируем компонент Layout для структуры страницы
 import Layout from './shared/layout/Layout'
 
+
 // Создаем корневой элемент (root) в элементе HTML с id="root"
 ReactDOM.createRoot(document.getElementById('root')).render(
   // Активируем строгий режим React для обнаружения ошибок
@@ -22,5 +23,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       {/* Рендерим компонент Router, который является навигацией по странице */}
       <Router/>
     </Layout>
-  </React.StrictMode>,
+  </React.StrictMode>
+  ,
 )

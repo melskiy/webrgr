@@ -1,0 +1,8 @@
+{
+    "_id": {
+      "$oid": "671bb6e94c39f0c74d04f559"
+    },
+    "username": "admin",
+    "password": "$2b$10$VBDX2JgDd/mRTNvqQV2LIObJyvPoqdal2155aPfmBDg82IfOzMCn6",
+    "__v": 0
+  }

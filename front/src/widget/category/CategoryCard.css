@@ -34,7 +34,7 @@ tr:nth-child(even) {
     background-color: #ebf1d3;
 }
 
-button {
+.card_button {
     background-image: url(./images/sort.png);
     background-position: center;
     background-repeat: no-repeat;

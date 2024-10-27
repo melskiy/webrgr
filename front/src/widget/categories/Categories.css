@@ -16,9 +16,14 @@
     font-size: 52px;
     color: #57290E;
     font-weight: 600;
+    flex: 0 1 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .categories__blocks {
+    margin-top: 3%;
     align-self: center;
     display: flex;
     flex-direction: row;
@@ -28,4 +33,27 @@
     flex-wrap: wrap;
     gap: 20px;
     width: 98%;
+}
+
+.add_category_button{
+    flex: 0 1 auto;
+    margin-left: auto;
+    background-image: url('images/add_button.svg');
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 62px, 68px;
+    width: 62px;
+    height: 68px;
+    border: none;
+}
+
+.category_header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: 93%;
 }

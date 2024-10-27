@@ -1,11 +1,17 @@
 // Импортируем хуки useEffect и useState из React
 import { useEffect, useState } from "react";
-
+import {AD_PRODUCT_PATH} from "../../const/path/PagePaths";
+import { useNavigate } from 'react-router-dom';
 // Импортируем стили CategoryCard.css
 import "./CategoryCard.css";
 
 // Определяем компонент CategoryCard
 const CategoryCard = () => {
+  const navigate = useNavigate();
+  const handleAddClick = () => {
+    navigate(AD_PRODUCT_PATH); // Переход на страницу добавления
+  };
+
   // Используем хук useEffect для загрузки данных при монтировании компонента
   useEffect(() => {
     // Получаем URL из localStorage
@@ -61,31 +67,38 @@ const CategoryCard = () => {
               {/* Добавляем блок для сортировки по калориям */}
               <div className="category-card__th-block">
                 <p>Калории</p>
-                <button onClick={() => sortData('calories')}></button>
+                <button className="card_button" onClick={() => sortData('calories')}></button>
               </div>
             </th>
             <th>
               {/* Добавляем блок для сортировки по белкам */}
               <div className="category-card__th-block">
                 <p>Белки</p>
-                <button onClick={() => sortData('squirrels')}></button>
+                <button className="card_button" onClick={() => sortData('squirrels')}></button>
               </div>
             </th>
             <th>
               {/* Добавляем блок для сортировки по жирам */}
               <div className="category-card__th-block">
                 <p>Жиры</p>
-                <button onClick={() => sortData('fats')}></button>
+                <button className="card_button" onClick={() => sortData('fats')}></button>
               </div>
             </th>
             <th>
               {/* Добавляем блок для сортировки по углеводам */}
               <div className="category-card__th-block">
                 <p>Углеводы</p>
-                <button onClick={() => sortData('carbohydrates')}></button>
+                <button className="card_button" onClick={() => sortData('carbohydrates')}></button>
               </div>
             </th>
-          </tr>
+          
+          {localStorage.getItem('user') &&
+          JSON.parse(localStorage.getItem('user')).isAdmin && (
+               <th>Действие
+               </th>
+             )
+            }
+        </tr>
         </thead>
         <tbody>
           {/* Если products не пустой, то отображаем строки таблицы */}
@@ -96,6 +109,24 @@ const CategoryCard = () => {
               <td>{product.squirrels}</td>
               <td>{product.fats}</td>
               <td>{product.carbohydrates}</td>
+              <td>
+              {localStorage.getItem('user') &&
+          JSON.parse(localStorage.getItem('user')).isAdmin && (
+              <div className="admin_buttons">
+                <div>
+               <button className="delete_category_button"></button>
+               <button className="edit_category_button"onClick={ 
+                      (e) => {
+                        e.preventDefault();
+                        handleAddClick();
+                      }
+              }
+                ></button>
+               </div>
+            </div>
+             )
+            }
+              </td>
             </tr>
           ))}
         </tbody>

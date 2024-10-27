@@ -35,6 +35,7 @@
     background-size: 200px 200px;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 }
 
 @media (max-width: 600px) {

@@ -1,11 +1,18 @@
 .login-container {
+    margin-top: 3%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25vh;
+    display: flex;
+    flex-direction: column;
 
   }
   
+  .label:required {
+    content:" *";
+    color: red;
+  }
+
   form {
     padding: 0px;
     border-radius: 8px;
@@ -39,14 +46,11 @@
   }
   
   .button_auth {
-    margin-left: auto;
     background-image: none;
-    display: block ;
     width: 30%;
-    padding: 20px;
+    padding: 9px;
     background-color: #D4EBBC;
     color: #57290E;
-    border: none;
     border-radius: 15px;
     cursor: pointer;
     font: 17px Helvetica;
@@ -54,9 +58,29 @@
     text-align: center;
     border-width: 2px;
     border-color: #66CC00;
+    margin-left: 7vh;
   }
   
   button:hover {
     background-color: #0056b3;
+  }
+
+  .button_auth_vk{
+    background-image: url('./vk.png');
+    width: 35px;
+    height: 35px;
+    background-size: 35px 35px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    border: none;
+    cursor: pointer;
+    display: block;
+  }
+
+  .form_buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
   }
   

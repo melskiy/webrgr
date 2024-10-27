@@ -1,14 +1,23 @@
 // Импортируем Link из react-router-dom для создания ссылки
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 // Импортируем стили для компонента FoodCard
 import "./FoodCard.css";
-
+import {AD_CATEGORY_PATH} from "../../const/path/PagePaths";
 // Импортируем константы путей из файла PagePaths
 import { CATEGORY_PATH } from "/src/const/path/PagePaths";
 
 // Определяем компонент FoodCard, который принимает три пропса: img, name и url
 const FoodCard = ({ img, name, url }) => {
+  const navigate = useNavigate();
+
+  const handleAddClick = () => {
+    navigate(AD_CATEGORY_PATH + url); // Переход на страницу добавления
+  };
+
+  const handleDeleteClick = () => {
+  };
+
   return (
     // Создаем ссылку с помощью Link из react-router-dom
     <Link
@@ -39,6 +48,22 @@ const FoodCard = ({ img, name, url }) => {
           {/* Создаем параграф с именем продукта */}
           <p className="food-card__block-name">
             { name }
+            {localStorage.getItem('user') &&
+          JSON.parse(localStorage.getItem('user')).isAdmin && (
+              <div className="admin_buttons">
+                <div>
+               <button className="delete_category_button"></button>
+               <button className="edit_category_button"onClick={ 
+                      (e) => {
+                        e.preventDefault();
+                        handleAddClick();
+                      }
+              }
+                ></button>
+               </div>
+            </div>
+             )
+            }
           </p>
         </div>
       </div>

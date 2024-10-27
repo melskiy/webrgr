@@ -11,8 +11,12 @@ import CategoryCard from "/src/widget/category/CategoryCard";
 import { CATEGORIES_PATH, CATEGORY_PATH } from "/src/const/path/PagePaths";
 import { useEffect, useState } from "react";
 import { AUTH_PATH } from "../../const/path/PagePaths";
+import {AD_PRODUCT_PATH} from "../../const/path/PagePaths";
+import {AD_CATEGORY_PATH} from "../../const/path/PagePaths";
 import Login from "../../auth/auth";
-
+import ProductForm from "../../admin/ProductForm/ProductForm";
+import AddCategory from "../../admin/CategoryForm/AddCategory";
+import Header from "../../shared/layout/Header";
 // Определяем компонент Router
 const Router = () => {
   // Создаем состояние cards с помощью хука useState
@@ -28,11 +32,21 @@ const Router = () => {
   // Возвращаем BrowserRouter, который является корневым компонентом для маршрутизации
   return (
     <BrowserRouter>
+    <Header/>
       {/* Определяем Routes, который содержит все маршруты приложения */}
       <Routes>
         {/* Маршрут для категорий */}
         <Route path={AUTH_PATH} element={<Login/>}/>
         <Route path={CATEGORIES_PATH} element={<Categories/>}/>
+        <Route path = {AD_CATEGORY_PATH} element = {<AddCategory/>}/>
+        <Route path = {AD_PRODUCT_PATH} element = {<ProductForm/>}/>
+        {cards?.map((card) => (
+          <Route key={card.url} path={AD_PRODUCT_PATH + card.url} element={<ProductForm/>} />
+        ))}
+
+        {cards?.map((card) => (
+          <Route key={card.url} path={AD_CATEGORY_PATH + card.url} element={<AddCategory/>} />
+        ))}
         {/* Маршруты для карточки категории */}
         {cards?.map((card) => (
           <Route key={card.url} path={CATEGORY_PATH + card.url} element={<CategoryCard />} />

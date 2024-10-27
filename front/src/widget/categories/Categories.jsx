@@ -1,6 +1,7 @@
 // Импортируем хуки useEffect и useState из React
 import { useEffect, useState } from "react";
-
+import { useNavigate} from "react-router-dom";
+import {AD_CATEGORY_PATH} from "../../const/path/PagePaths";
 // Импортируем стили Categories.css
 import "./Categories.css";
 
@@ -8,7 +9,12 @@ import "./Categories.css";
 import FoodCard from "/src/shared/card/FoodCard";
 
 // Определяем компонент Categories
-const Categories = () => {
+const Categories = ({ url }) => {
+  const navigate = useNavigate();
+
+  const handleAddClick = () => {
+    navigate(AD_CATEGORY_PATH); // Переход на страницу добавления
+  };
   // Создаем состояние cards с помощью хука useState
   const [cards, setCards] = useState();
 
@@ -32,9 +38,16 @@ const Categories = () => {
         alt="Различные продукты"
       />
       {/* Добавляем заголовок в компонент */}
+      <div className="category_header">
       <p className="categories__title">
         Категории
       </p>
+      {localStorage.getItem('user') &&
+          JSON.parse(localStorage.getItem('user')).isAdmin && (
+               <button className="add_category_button" onClick={handleAddClick}></button>
+             )
+            }
+      </div>
       {/* Добавляем блоки с карточками в компонент */}
       <div className="categories__blocks">
         {/* Если cards не пустой, то отображаем карточки */}

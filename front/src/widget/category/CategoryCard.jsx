@@ -1,5 +1,6 @@
 // Импортируем хуки useEffect и useState из React
 import { useEffect, useState } from "react";
+import {CHANGE_PRODUCT_PATH} from "../../const/path/PagePaths";
 import {AD_PRODUCT_PATH} from "../../const/path/PagePaths";
 import { useNavigate } from 'react-router-dom';
 // Импортируем стили CategoryCard.css
@@ -9,7 +10,11 @@ import "./CategoryCard.css";
 const CategoryCard = () => {
   const navigate = useNavigate();
   const handleAddClick = () => {
-    navigate(AD_PRODUCT_PATH); // Переход на страницу добавления
+    navigate(CHANGE_PRODUCT_PATH + localStorage.getItem("product")); // Переход на страницу добавления
+  };
+
+  const handleAddClickAdd = () => {
+    navigate(AD_PRODUCT_PATH + localStorage.getItem("product")); // Переход на страницу добавления
   };
 
   // Используем хук useEffect для загрузки данных при монтировании компонента
@@ -55,7 +60,14 @@ const CategoryCard = () => {
   return (
     <div className="category-card">
       {/* Добавляем заголовок в компонент */}
+      <div className="category_header">
       <h1 className="category-card__title">{localStorage.getItem("product_name")}</h1>
+      {localStorage.getItem('user') &&
+          JSON.parse(localStorage.getItem('user')).isAdmin && (
+               <button className="add_category_button" onClick={handleAddClickAdd}></button>
+             )
+            }
+            </div>
       {/* Добавляем таблицу в компонент */}
       <table>
         <thead>

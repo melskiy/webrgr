@@ -3,7 +3,7 @@ import { Link, useNavigate} from "react-router-dom";
 
 // Импортируем стили для компонента FoodCard
 import "./FoodCard.css";
-import {AD_CATEGORY_PATH} from "../../const/path/PagePaths";
+import {CHANGE_CATEGORY_PATH} from "../../const/path/PagePaths";
 // Импортируем константы путей из файла PagePaths
 import { CATEGORY_PATH } from "/src/const/path/PagePaths";
 
@@ -12,7 +12,7 @@ const FoodCard = ({ img, name, url }) => {
   const navigate = useNavigate();
 
   const handleAddClick = () => {
-    navigate(AD_CATEGORY_PATH + url); // Переход на страницу добавления
+    navigate(CHANGE_CATEGORY_PATH + url); // Переход на страницу добавления
   };
 
   const handleDeleteClick = () => {

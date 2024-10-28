@@ -25,7 +25,7 @@ function ProductForm() {
   return (
     <div className='form-container'>
     <form  className='forms' onSubmit={handleSubmit}>
-       <h2> ДОБАВИТЬ ПРОДУКТ</h2>
+       <h2> ИЗМЕНИТЬ ПРОДУКТ</h2>
       <div className="form-group">
         <label htmlFor="productName">Название продукта:</label>
         <input
@@ -80,7 +80,7 @@ function ProductForm() {
           className="form-control"
         />
       </div>
-      <button type="submit" className='btn-primary'>Добавить</button>
+      <button type="submit" className='btn-primary'>Изменить</button>
     </form>
     </div>
   );

@@ -24,7 +24,7 @@ function AddCategory() {
 
   return (
     <div className="add-category">
-      <h2>ДОБАВИТЬ КАТЕГОРИЮ</h2>
+      <h2>ИЗМЕНИТЬ КАТЕГОРИЮ</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="category-name">Название категории:</label>
         <input
@@ -47,7 +47,7 @@ function AddCategory() {
           />
         </div>
 
-        <button type="submit" className='add_image_button'>Добавить</button>
+        <button type="submit" className='add_image_button'>Изменить</button>
       </form>
     </div>
   );

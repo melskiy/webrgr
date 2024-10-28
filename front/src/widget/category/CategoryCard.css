@@ -7,9 +7,13 @@
 }
 
 .category-card__title {
-    font-size: 45px;
+    font-size: 25px;
     color: #57290E;
     font-weight: 600;
+    flex: 0 1 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 

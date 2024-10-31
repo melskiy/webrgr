@@ -6,8 +6,9 @@ function Header() {
   const [showLogoutButton, setShowLogoutButton] = useState(false);
 
   const handleOnClick = () => {
-    
-    if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).isAdmin) {
+    const user = JSON.parse(localStorage.getItem('user'));
+  
+    if (user && user.isAdmin) {
       setShowLogoutButton(true);
     } else {
       navigate('/auth');
@@ -26,11 +27,9 @@ function Header() {
         Справочник диетолога
       </p>
       <div onClick={handleOnClick} className="layout__header-second-img">
-        {showLogoutButton ? (
+        {showLogoutButton &&
           <button className = 'logout_button' onClick={handleLogout}>Выйти</button>
-        ) : (
-          ''
-        )}
+        }
       </div>
     </header>
   );

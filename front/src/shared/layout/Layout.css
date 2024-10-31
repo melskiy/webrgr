@@ -37,7 +37,22 @@
     background-position: center;
     cursor: pointer;
 }
-
+.logout_button{
+    background-image: none;
+    position: absolute;
+    padding: 5px;
+    background-color: #D4EBBC;
+    color: #57290E;
+    cursor: pointer;
+    font: 17px Helvetica;
+    font-weight: bold;
+    text-align: center;
+    border-width: 2px;
+    border-color: #e95b0e;
+    margin-left: 7vh;
+    margin-top: 25vh;
+    z-index: 0;
+}
 @media (max-width: 600px) {
     .layout__header-first-img {
             width: 80px;

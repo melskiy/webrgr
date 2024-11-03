@@ -7,15 +7,19 @@
 }
 
 .category-card__title {
+    flex: 0 1 auto;
     font-size: 25px;
     color: #57290E;
     font-weight: 600;
-    flex: 0 1 auto;
-    position: absolute;
     left: 50%;
-    transform: translateX(-50%);
 }
 
+.category_card_header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
 
 table {
     width: 80%;

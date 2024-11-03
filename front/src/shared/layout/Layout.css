@@ -19,6 +19,7 @@
     background-size: 200px 200px;
     background-repeat: no-repeat;
     background-position: center; 
+    cursor: pointer;
 }
 
 .layout__header-text {
@@ -51,7 +52,7 @@
     border-color: #e95b0e;
     margin-left: 7vh;
     margin-top: 25vh;
-    z-index: 0;
+    z-index: 5;
 }
 @media (max-width: 600px) {
     .layout__header-first-img {

@@ -60,7 +60,7 @@ const CategoryCard = () => {
   return (
     <div className="category-card">
       {/* Добавляем заголовок в компонент */}
-      <div className="category_header">
+      <div className="category_card_header">
       <h1 className="category-card__title">{localStorage.getItem("product_name")}</h1>
       {localStorage.getItem('user') &&
           JSON.parse(localStorage.getItem('user')).isAdmin && (
@@ -121,9 +121,10 @@ const CategoryCard = () => {
               <td>{product.squirrels}</td>
               <td>{product.fats}</td>
               <td>{product.carbohydrates}</td>
-              <td>
+    
               {localStorage.getItem('user') &&
           JSON.parse(localStorage.getItem('user')).isAdmin && (
+            <td>
               <div className="admin_buttons">
                 <div>
                <button className="delete_category_button"></button>
@@ -136,9 +137,10 @@ const CategoryCard = () => {
                 ></button>
                </div>
             </div>
+            </td>
              )
             }
-              </td>
+              
             </tr>
           ))}
         </tbody>

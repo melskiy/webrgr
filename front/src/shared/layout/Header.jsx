@@ -15,6 +15,11 @@ function Header() {
     }
   };
 
+  const handleOnClick2 = () => {
+      navigate('/');
+
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('user');
     setShowLogoutButton(false);
@@ -22,7 +27,7 @@ function Header() {
 
   return (
     <header className="layout__header">
-      <div className="layout__header-first-img" />
+      <div onClick={handleOnClick2} className="layout__header-first-img" />
       <p className="layout__header-text">
         Справочник диетолога
       </p>

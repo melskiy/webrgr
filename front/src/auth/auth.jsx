@@ -39,7 +39,7 @@ function Login() {
 
       navigate('/');
     } catch (error) {
-      alert('Login failed: ' + error.message);
+      alert('Login failed: ' + 'Aдминистратора с таким логином/паролем не существует');
     }
   };
 

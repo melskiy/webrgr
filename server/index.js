@@ -160,6 +160,61 @@ app.put('/cards/:url', (req, res) => {
     });
   });
 });
+
+// Настраиваем хранилище для файлов с помощью multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const destPath = path.join(__dirname, '../front/src/widget/categories/images');
+    fs.mkdirSync(destPath, { recursive: true });
+    cb(null, destPath); // Папка для сохранения изображений
+  },
+  filename: (req, file, cb) => {
+    // Указываем оригинальное имя файла для сохранения
+    cb(null, file.originalname);
+  },
+});
+
+// Создаем middleware для обработки загрузки файлов
+const upload = multer({ storage });
+
+// Эндпоинт для загрузки изображений и обновления cards.json
+app.post('/upload', upload.single('image'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'Файл не загружен' });
+    }
+
+    const { name, url } = req.body;
+    const newCard = {
+      img: `../front/src/widget/categories/images/${url}`,
+      name : name,
+      url: url.split('.').slice(0, -1).join('.'),
+    };
+
+    fs.readFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Ошибка чтения файла' });
+      }
+
+      const cards = JSON.parse(data);
+      cards.push(newCard);
+
+      fs.writeFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), JSON.stringify(cards, null, 2), (err) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ message: 'Ошибка записи файла' });
+        }
+
+        res.status(200).json({ message: 'Карточка успешно добавлена' });
+      });
+    });
+  } catch (error) {
+    console.error('Ошибка при загрузке изображения:', error);
+    res.status(500).json({ message: 'Ошибка при загрузке изображения' });
+  }
+});
+
 // Запуск сервера
 app.listen(port, (error) => {
   if (!error) {

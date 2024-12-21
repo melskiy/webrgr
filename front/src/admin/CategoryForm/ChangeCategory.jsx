@@ -4,22 +4,49 @@ import './AddCategory.css'; // Импортируем стили
 function AddCategory() {
   const [categoryName, setCategoryName] = useState('');
   const [categoryImage, setCategoryImage] = useState(null);
+  const [imageName, setImageName] = useState('');
   const fileInputRef = useRef(null);
+
   const handleInputChange = (event) => {
     setCategoryName(event.target.value);
   };
+
   const handleClick = () => {
     fileInputRef.current.click();
   };
+
   const handleImageChange = (event) => {
-    setCategoryImage(event.target.files[0]);
+    const file = event.target.files[0];
+    setCategoryImage(file);
+    setImageName(file.name);
   };
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Здесь будет логика отправки данных на сервер
-    console.log('Название категории:', categoryName);
-    console.log('Изображение:', categoryImage);
+
+    const formData = new FormData();
+    formData.append('image', categoryImage);
+    formData.append('name', categoryName);
+    formData.append('newUrl', localStorage.getItem("product"));
+    formData.append('imagename', imageName);
+    try {
+      const response = await fetch(`http://localhost:4000/cards/${localStorage.getItem("product")}`, {
+        method: 'PUT',
+        body: formData,
+      });
+        
+      if (response.ok) {
+        console.log('Image uploaded successfully');
+      } else {
+        console.error('Error uploading image');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    setCategoryName(''); 
+    setCategoryImage(null);
+    setImageName(''); 
   };
 
   return (

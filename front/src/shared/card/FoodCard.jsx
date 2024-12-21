@@ -15,7 +15,10 @@ const FoodCard = ({ img, name, url }) => {
     navigate(CHANGE_CATEGORY_PATH + url); // Переход на страницу добавления
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
+    await fetch(`http://localhost:4000/cards/${url}`, {
+      method: 'DELETE',
+    });
   };
 
   return (
@@ -52,7 +55,12 @@ const FoodCard = ({ img, name, url }) => {
           JSON.parse(localStorage.getItem('user')).isAdmin && (
               <div className="admin_buttons">
                 <div>
-               <button className="delete_category_button"></button>
+               <button className="delete_category_button" onClick={ 
+                      (e) => {
+                        e.preventDefault();
+                        handleDeleteClick();
+                      }
+                    }></button>
                <button className="edit_category_button"onClick={ 
                       (e) => {
                         e.preventDefault();

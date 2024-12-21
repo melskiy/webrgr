@@ -17,6 +17,10 @@ const CategoryCard = () => {
     navigate(AD_PRODUCT_PATH + localStorage.getItem("product")); // Переход на страницу добавления
   };
 
+  const handleDelete = (id) => {
+    fetch(`http://localhost:4000/collection/${localStorage.getItem("product")}/${id}`, 
+      { method: 'DELETE', headers: { 'Content-Type': 'application/json' }});
+  };
   // Используем хук useEffect для загрузки данных при монтировании компонента
   useEffect(() => {
     // Получаем URL из localStorage
@@ -127,7 +131,14 @@ const CategoryCard = () => {
             <td>
               <div className="admin_buttons">
                 <div>
-               <button className="delete_category_button"></button>
+               <button className="delete_category_button"
+               onClick={ 
+                (e) => {
+                  e.preventDefault();
+                  handleDelete(product._id);
+                }
+                }></button>
+
                <button className="edit_category_button"onClick={ 
                       (e) => {
                         e.preventDefault();

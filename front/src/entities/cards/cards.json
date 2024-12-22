@@ -10,11 +10,6 @@
     "url": "chicken"
   },
   {
-    "img": "../front/src/widget/categories/images/photo.php.jpeg",
-    "name": "яйца",
-    "url": "png-transparent-tuxedo-logo-suit-clothing-blazer-wedding-suits-angle-text-logo.png"
-  },
-  {
     "img": "/src/widget/categories/images/seafood.jpg",
     "name": "Морепродукты",
     "url": "seafood"
@@ -45,11 +40,6 @@
     "url": "green"
   },
   {
-    "img": "/src/widget/categories/images/mashrooms.jpg",
-    "name": "Грибы",
-    "url": "mashrooms"
-  },
-  {
     "img": "/src/widget/categories/images/oil.jpg",
     "name": "Жиры, масла",
     "url": "oil"
@@ -60,19 +50,9 @@
     "url": "nuts"
   },
   {
-    "img": "/src/widget/categories/images/cereals.jpg",
-    "name": "Крупы, злаки",
-    "url": "cereals"
-  },
-  {
     "img": "/src/widget/categories/images/seeds.jpg",
     "name": "Семена",
     "url": "seeds"
-  },
-  {
-    "img": "/src/widget/categories/images/spices.jpg",
-    "name": "spices",
-    "url": "pngwing.com.png"
   },
   {
     "img": "/src/widget/categories/images/flour.jpg",

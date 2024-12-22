@@ -12,7 +12,16 @@ function ProductForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    const newDocument = {
+      product : productName,
+      calories: calories,
+      squirrels: proteins,
+      fats: fats,
+      carbohydrates: carbohydrates
+    }
+    fetch(`http://localhost:4000/collection/${localStorage.getItem("product")}`, 
+      { method: 'PUT', headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(newDocument) });
     console.log({
       productName,
       calories,
@@ -43,7 +52,7 @@ function ProductForm() {
           type="number"
           id="calories"
           value={calories}
-          onChange={(e) => setCalories(e.tail.value)}
+          onChange={(e) => setCalories(e.target.value)}
           className="form-control"
         />
       </div>

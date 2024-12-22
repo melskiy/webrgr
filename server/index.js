@@ -74,15 +74,18 @@ app.delete('/collection/:collectionName/:id', async (req, res) => {
 });
 
 
-app.put('/collection/:collectionName/:id', async (req, res) => {
+app.put('/collection/:collectionName', async (req, res) => {
   try {
     const collectionName = req.params.collectionName;
-    const id = req.params.id;
-    const updateData = req.body;
+    const { name, ...updateData } = req.body;
 
-    const result = await db.collection(collectionName).updateOne({ _id: id }, { $set: updateData });
+    const result = await db.collection(collectionName).updateOne(
+      { name: name }, 
+      { $set: updateData }
+    );
+
     if (result.modifiedCount > 0) {
-      res.send(`Документ с ID ${req.params.id} успешно обновлен`);
+      res.send(`Документ с именем ${name} успешно обновлен`);
     } else {
       res.status(404).send('Документ не найден');
     }
@@ -96,8 +99,18 @@ app.post('/collection/:collectionName', async (req, res) => {
     const collectionName = req.params.collectionName;
     const newDocument = req.body;
 
+    // Получаем последний документ в коллекции, отсортированный по _id
+    const lastDocument = await db.collection(collectionName)
+      .find()
+      .sort({ _id: -1 })
+      .limit(1)
+      .toArray();
+
+    // Устанавливаем _id как следующий номер или 1, если коллекция пуста
+    newDocument._id = lastDocument.length > 0 ? lastDocument[0]._id + 1 : 1;
+
     const result = await db.collection(collectionName).insertOne(newDocument);
-    res.status(201).send(`Документ успешно добавлен с ID ${result.insertedId}`);
+    res.status(201).send(`Документ успешно добавлен с ID ${newDocument._id}`);
   } catch (error) {
     res.status(500).send(error);
   }

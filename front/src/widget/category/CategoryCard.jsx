@@ -20,6 +20,7 @@ const CategoryCard = () => {
   const handleDelete = (id) => {
     fetch(`http://localhost:4000/collection/${localStorage.getItem("product")}/${id}`, 
       { method: 'DELETE', headers: { 'Content-Type': 'application/json' }});
+      window.location.reload();
   };
   // Используем хук useEffect для загрузки данных при монтировании компонента
   useEffect(() => {

@@ -19,6 +19,7 @@ const FoodCard = ({ img, name, url }) => {
     await fetch(`http://localhost:4000/cards/${url}`, {
       method: 'DELETE',
     });
+    window.location.reload();
   };
 
   return (

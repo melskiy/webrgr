@@ -2,15 +2,28 @@ import React, { useState ,  useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./auth.css";
 
+/**
+ * Компонент авторизации, обеспечивающий вход через форму и VK ID
+ * @component
+ * @returns {JSX.Element} Форма авторизации
+ */
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  /**
+   * Обработчик ошибок авторизации через VK ID
+   * @param {Error} error - Объект ошибки
+   */
   const vkidOnError = (error) => {
     console.error('VK ID Error:', error);
   };
 
+  /**
+   * Обработчик успешной авторизации через VK ID
+   * @param {Object} data - Данные пользователя от VK ID
+   */
   const vkidOnSuccess = async (data) => {
     const data_login = data
     console.log( data_login["user_id"])
@@ -42,6 +55,9 @@ function Login() {
     
   };
 
+  /**
+   * Эффект для загрузки и инициализации SDK VK ID
+   */
   useEffect(() => {
     const loadVKIDSDK = () => {
       if (document.getElementById('vk-sdk-script')) {
@@ -106,15 +122,26 @@ function Login() {
   }, []);
   
 
-  
+  /**
+   * Обработчик изменения поля логина
+   * @param {React.ChangeEvent<HTMLInputElement>} event 
+   */
   const handleLoginChange = (event) => {
     setUsername(event.target.value);
   };
 
+  /**
+   * Обработчик изменения поля пароля
+   * @param {React.ChangeEvent<HTMLInputElement>} event 
+   */
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
+  /**
+   * Обработчик отправки формы авторизации
+   * @param {React.FormEvent<HTMLFormElement>} e 
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

@@ -1,12 +1,14 @@
-const express = require('express');
-const multer = require('multer'); 
-const path = require('path');
-const fs = require('fs');
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const cors = require('cors');
+// Импортируем необходимые модули
+const express = require('express'); // Веб-фреймворк для Node.js
+const multer = require('multer'); // Middleware для обработки multipart/form-data (загрузка файлов)
+const path = require('path'); // Модуль для работы с путями файлов
+const fs = require('fs'); // Модуль для работы с файловой системой
+const mongoose = require('mongoose'); // ODM для работы с MongoDB
+const bcrypt = require('bcrypt'); // Библиотека для хеширования паролей
+const jwt = require('jsonwebtoken'); // Библиотека для работы с JWT токенами
+const cors = require('cors'); // Middleware для настройки CORS
 
+// Создаем экземпляр приложения Express
 const app = express();
 const port = 4000;
 
@@ -16,28 +18,35 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 
+// Middleware для парсинга JSON в теле запроса
 app.use(express.json());
 
-// Определение схемы пользователя
+// Определяем схему пользователя для MongoDB
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
+// Создаем модель пользователя
 const User = mongoose.model('User', userSchema);
 
+// Включаем CORS
 app.use(cors());
 
+// Получаем объект подключения к базе данных
 const db = mongoose.connection;
 
+// Настраиваем хранилище для загружаемых файлов
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    // Определяем путь для сохранения файлов
     const destPath = path.join(__dirname, '../front/src/widget/categories/images');
+    // Создаем директорию, если она не существует
     fs.mkdirSync(destPath, { recursive: true });
-    cb(null, destPath); // Папка для сохранения изображений
+    cb(null, destPath);
   },
   filename: (req, file, cb) => {
-    // Указываем оригинальное имя файла для сохранения
+    // Сохраняем файл с оригинальным именем
     cb(null, file.originalname);
   },
 });
@@ -45,6 +54,7 @@ const storage = multer.diskStorage({
 // Создаем middleware для обработки загрузки файлов
 const upload = multer({ storage });
 
+// GET запрос для получения всех документов из коллекции
 app.get('/collection/:collectionName', async (req, res) => {
   try {
     const collectionName = req.params.collectionName;
@@ -60,6 +70,7 @@ app.get('/collection/:collectionName', async (req, res) => {
   }
 });
 
+// DELETE запрос для удаления документа по ID
 app.delete('/collection/:collectionName/:id', async (req, res) => {
   try {
     const collectionName = req.params.collectionName;
@@ -73,7 +84,7 @@ app.delete('/collection/:collectionName/:id', async (req, res) => {
   }
 });
 
-
+// PUT запрос для обновления документа
 app.put('/collection/:collectionName', async (req, res) => {
   try {
     const collectionName = req.params.collectionName;
@@ -94,19 +105,20 @@ app.put('/collection/:collectionName', async (req, res) => {
   }
 });
 
+// POST запрос для создания нового документа
 app.post('/collection/:collectionName', async (req, res) => {
   try {
     const collectionName = req.params.collectionName;
     const newDocument = req.body;
 
-    // Получаем последний документ в коллекции, отсортированный по _id
+    // Находим последний документ для определения следующего ID
     const lastDocument = await db.collection(collectionName)
       .find()
       .sort({ _id: -1 })
       .limit(1)
       .toArray();
 
-    // Устанавливаем _id как следующий номер или 1, если коллекция пуста
+    // Устанавливаем новый ID
     newDocument._id = lastDocument.length > 0 ? lastDocument[0]._id + 1 : 1;
 
     const result = await db.collection(collectionName).insertOne(newDocument);
@@ -116,7 +128,7 @@ app.post('/collection/:collectionName', async (req, res) => {
   }
 });
 
-
+// POST запрос для авторизации пользователя
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
@@ -126,59 +138,56 @@ app.post('/login', async (req, res) => {
     return res.status(400).send('User not found');
   }
 
+  // Проверяем пароль
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     console.log('пароль не подходит');
     return res.status(400).send('Invalid password');
   }
 
+  // Создаем JWT токен
   const token = jwt.sign({ id: user._id }, 'secret_key', { expiresIn: '1h' });
   res.json({ token });
 });
 
+// Закомментированный код для создания тестового пользователя
 // const seedUser = async () => {
 //   try {
-//     // Удаление существующего пользователя с тем же логином
 //     await User.deleteOne({ username: '274161854' });
-
-//     // Создание нового пользователя
 //     const username = '274161854';
 //     const password = '274161854';
-
-//     // Хешируем пароль
 //     const salt = await bcrypt.genSalt(10);
 //     const hashedPassword = await bcrypt.hash(password, salt);
-
-//     // Создаем нового пользователя с хешированным паролем
 //     const user = new User({
 //       username: username,
-//       password: hashedPassword, // Сохраняем хешированный пароль
+//       password: hashedPassword,
 //     });
-
 //     await user.save();
 //     console.log('User created successfully');
 //   } catch (error) {
 //     console.error('Error creating user:', error);
 //   } finally {
-//     mongoose.connection.close(); // Закрываем соединение с базой данных
+//     mongoose.connection.close();
 //   }
 // };
-
 // seedUser();
 
-// Эндпоинт для удаления карточки
+// DELETE запрос для удаления карточки
 app.delete('/cards/:url', (req, res) => {
   const cardUrl = req.params.url;
 
+  // Читаем файл с карточками
   fs.readFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), 'utf8', (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ message: 'Ошибка чтения файла' });
     }
 
+    // Фильтруем карточки
     let cards = JSON.parse(data);
     cards = cards.filter(card => card.url !== cardUrl);
 
+    // Записываем обновленный список карточек
     fs.writeFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), JSON.stringify(cards, null, 2), (err) => {
       if (err) {
         console.log(err);
@@ -190,17 +199,19 @@ app.delete('/cards/:url', (req, res) => {
   });
 });
 
-// Эндпоинт для редактирования карточки
+// PUT запрос для редактирования карточки
 app.put('/cards/:url', upload.single('image'), (req, res) => {
   const cardUrl = req.params.url;
   const { name, newUrl, imagename } = req.body;
 
+  // Читаем файл с карточками
   fs.readFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), 'utf8', (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ message: 'Ошибка чтения файла' });
     }
 
+    // Находим и обновляем карточку
     let cards = JSON.parse(data);
     const cardIndex = cards.findIndex(card => card.url === cardUrl);
 
@@ -214,6 +225,8 @@ app.put('/cards/:url', upload.single('image'), (req, res) => {
       url: newUrl || cardUrl,
     };
     console.log(cards[cardIndex])
+
+    // Записываем обновленный список карточек
     fs.writeFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), JSON.stringify(cards, null, 2), (err) => {
       if (err) {
         console.log(err);
@@ -225,7 +238,7 @@ app.put('/cards/:url', upload.single('image'), (req, res) => {
   });
 });
 
-// Эндпоинт для загрузки изображений и обновления cards.json
+// POST запрос для загрузки изображений и создания новой карточки
 app.post('/upload', upload.single('image'), (req, res) => {
   try {
     if (!req.file) {
@@ -239,15 +252,18 @@ app.post('/upload', upload.single('image'), (req, res) => {
       url: url.split('.').slice(0, -1).join('.'),
     };
 
+    // Читаем существующие карточки
     fs.readFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), 'utf8', (err, data) => {
       if (err) {
         console.log(err);
         return res.status(500).json({ message: 'Ошибка чтения файла' });
       }
 
+      // Добавляем новую карточку
       const cards = JSON.parse(data);
       cards.push(newCard);
 
+      // Записываем обновленный список карточек
       fs.writeFile(path.join(__dirname, '../front/src/entities/cards/cards.json'), JSON.stringify(cards, null, 2), (err) => {
         if (err) {
           console.log(err);
@@ -263,7 +279,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
   }
 });
 
-// Запуск сервера
+// Запускаем сервер
 app.listen(port, (error) => {
   if (!error) {
     console.log("Server is Successfully Running, and App is listening on port " + port);

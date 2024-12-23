@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './AddCategory.css'; // Импортируем стили
 
 function AddCategory() {
@@ -21,6 +21,9 @@ function AddCategory() {
     setImageName(file.name);
   };
 
+  useEffect(() => {
+        setCategoryName(localStorage.getItem("product") || '');
+  }, []); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();

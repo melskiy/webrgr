@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import "./ProductForm.css";
 
 function ProductForm() {
@@ -9,6 +9,20 @@ function ProductForm() {
   const [fats, setFats] = useState('');
   const [carbohydrates,   
  setCarbohydrates] = useState('');
+ useEffect(() => {
+  fetch(`http://localhost:4000/collection/${localStorage.getItem("product")}`)
+    .then(res => res.json())
+    .then(data => {
+      const product = data.find(item => item.product === localStorage.getItem("product_name"));
+      console.log(localStorage.getItem("product_name")); 
+      setProductName(product?.product || '');
+      setCalories(product?.calories || '');
+      setProteins(product?.squirrels || '');
+      setFats(product?.fats || '');
+      setCarbohydrates(product?.carbohydrates || '');
+    })
+    .catch(err => console.error('Error fetching product:', err));
+}, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,6 +57,7 @@ function ProductForm() {
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
           className="form-control"
+          
         />
       </div>
       <div className="form-group">

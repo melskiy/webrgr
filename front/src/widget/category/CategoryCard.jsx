@@ -9,7 +9,8 @@ import "./CategoryCard.css";
 // Определяем компонент CategoryCard
 const CategoryCard = () => {
   const navigate = useNavigate();
-  const handleAddClick = () => {
+  const handleAddClick = (productName) => {
+    localStorage.setItem("product_name", productName);
     navigate(CHANGE_PRODUCT_PATH + localStorage.getItem("product")); // Переход на страницу добавления
   };
 
@@ -143,7 +144,7 @@ const CategoryCard = () => {
                <button className="edit_category_button"onClick={ 
                       (e) => {
                         e.preventDefault();
-                        handleAddClick();
+                        handleAddClick(product.product);
                       }
               }
                 ></button>

@@ -22,7 +22,7 @@ function AddCategory() {
   };
 
   useEffect(() => {
-        setCategoryName(localStorage.getItem("product") || '');
+        setCategoryName(localStorage.getItem("product_name") || '');
   }, []); 
 
   const handleSubmit = async (event) => {
@@ -30,7 +30,7 @@ function AddCategory() {
 
     const formData = new FormData();
     formData.append('image', categoryImage);
-    formData.append('name', categoryName);
+    formData.append('name', localStorage.getItem("product_name"));
     formData.append('newUrl', localStorage.getItem("product"));
     formData.append('imagename', imageName);
     try {
